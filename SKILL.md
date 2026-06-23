@@ -23,7 +23,9 @@ Spawn a subagent only when **all three** hold:
 - the task is a self-contained sub-problem whose result returns as a compact artifact, **and**
 - it's big enough that the brief+cold-start cost is worth it (the floor).
 
-Otherwise do it inline. One exception needs a **human gate**: a hard task that needs more effort but is the main through-line (not spawnable) — you cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort high." Gate only high-consequence, low-reversibility tasks; don't nag. _Done when:_ the task is routed to inline, a spawn, or a gate.
+Otherwise do it inline. One exception needs a **human gate**: a hard task that needs more effort but is the main through-line (not spawnable) — you cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort high." Gate only high-consequence, low-reversibility tasks; don't nag.
+
+**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ Opus+medium`. It's a passive decision log, not a prompt: the don't-nag rule above governs the *gate* (it asks you to act), never the signal (it only reports), so the signal fires at every task boundary even when the decision is "inline, unchanged" — the case that was previously invisible. When the outcome is a high-consequence, low-reversibility task done *inline* — the one case that forfeits the executor/reviewer separation a spawn gets for free (ADR-0004) — append the verifiable criterion you'll self-check against. _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
 
 ## 4. Apply the peak-working-set veto
 
