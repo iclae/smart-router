@@ -46,6 +46,10 @@ When the current workflow is already owned by a skill that self-routes model/eff
 **Self-assessment**:
 The router's difficulty check, fired only at task boundaries — each new user request, or when the main session carves off a clearly self-contained, clearly off-profile sub-block. Not per tool call.
 
+**Routing signal**:
+The one-line, passive announcement the router emits at every task boundary stating the chosen outcome (e.g. `⟢ router: inline @ Opus+medium`). A decision *log*, not a prompt — it asks nothing of the user. That is what separates it from the **gate**, an active escalation prompt ("consider /effort high") that interrupts and asks the user to act. The `don't-nag` rule governs the gate, never the signal — so the signal fires even when the decision is "inline, unchanged", which is exactly the outcome that was previously invisible. For a high-consequence, low-reversibility inline task it also carries the verifiable criterion, because inline forfeits the free executor/reviewer separation.
+_Avoid_: prompt, notification, log line
+
 **Verifiable criterion**:
 A domain-agnostic check whose evaluation is *independent of* and cheaper than producing the work, yielding an observable pass/fail. The independence is what catches a confidently-wrong result — the check can't share the blind spot that produced it. General types: independent re-derivation, check-against-source, consistency/constraint, reproducible/executable, checklist coverage. Tests and typechecks are just the coding instances. Its absence is itself a routing signal — unverifiable + high-stakes routes to a human gate.
 _Avoid_: success criteria, acceptance test (too coding/spec-bound)
