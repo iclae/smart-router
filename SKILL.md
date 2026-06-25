@@ -1,10 +1,10 @@
 ---
 name: smart-router
-description: Right-size the model and effort per task — run the main session at Opus+medium and delegate off-profile work to subagents.
+description: Right-size the model and effort per task — run the main session at Opus+high and delegate off-profile work to subagents.
 disable-model-invocation: true
 ---
 
-A discipline the main session self-applies so heavy reasoning gets enough power and mechanical work doesn't burn it. The main session stays **Opus+medium** and plays router, never the heavy laborer. Vocabulary (Profile, Roster, Peak working set, Brief, Verifiable criterion, Yield) is defined in [`CONTEXT.md`](CONTEXT.md); the *why* behind each rule is in [`docs/adr/`](docs/adr/).
+A discipline the main session self-applies so heavy reasoning gets enough power and mechanical work doesn't burn it. The main session stays **Opus+high** and plays router, never the heavy laborer. Vocabulary (Profile, Roster, Peak working set, Brief, Verifiable criterion, Yield) is defined in [`CONTEXT.md`](CONTEXT.md); the *why* behind each rule is in [`docs/adr/`](docs/adr/).
 
 Run these at every **task boundary** — a new user request, or when you carve off a clearly self-contained, clearly off-profile sub-block. Never per tool call.
 
@@ -18,14 +18,19 @@ Judge the task's needed **Profile** by introspection — how hard is the reasoni
 
 ## 3. Spawn, do inline, or gate
 
-Spawn a subagent only when **all three** hold:
-- the profile differs from Opus+medium enough to matter (not medium↔high jitter), **and**
-- the task is a self-contained sub-problem whose result returns as a compact artifact, **and**
-- it's big enough that the brief+cold-start cost is worth it (the floor).
+Two independent forces pull a task off inline; **either** alone can justify a spawn:
+- **Power** — the needed *model* differs from Opus (down to Sonnet/Haiku for a separable chunk). Pure effort is never a power trigger: Opus is the top model, so the only "up" is effort, which you can't change on yourself.
+- **Context economy** (ADR-0007) — the main needs only the *result*, not the process, and that process is verbose enough that keeping it inline would tax the rest of a long session.
 
-Otherwise do it inline. One exception needs a **human gate**: a hard task that needs more effort but is the main through-line (not spawnable) — you cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort high." Gate only high-consequence, low-reversibility tasks; don't nag.
+Spawn when one force holds **and** both gates pass: the task is a self-contained sub-problem returning a compact artifact, **and** it clears the floor (brief+cold-start cost is worth it — for a context-economy spawn the floor is the *volume of process avoided*, not difficulty).
 
-**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ Opus+medium`. It's a passive decision log, not a prompt: the don't-nag rule above governs the *gate* (it asks you to act), never the signal (it only reports), so the signal fires at every task boundary even when the decision is "inline, unchanged" — the case that was previously invisible. When the outcome is a high-consequence, low-reversibility task done *inline* — the one case that forfeits the executor/reviewer separation a spawn gets for free (ADR-0004) — append the verifiable criterion you'll self-check against. _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
+Otherwise stay **inline** — including when the process is worth *retaining* as basis for later work in a long task: a spawn would discard the trail the main will need, so inline beats spawn there even if the task looks separable.
+
+One case still needs a **human gate**: a task that needs more *effort* but is the main through-line (not spawnable) — you cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort xhigh." Gate only high-consequence, low-reversibility tasks; don't nag. Two switching-cost rules shape it (ADR-0006): **gate early** — raise it at the first boundary where heavy work is foreseeable, because acting on it re-reads the whole accumulated history; and **prefer a spawn** whenever the heavy work is separable, since a spawn starts cold and never triggers that re-read. A late, non-separable gate must say so: "this re-reads the full history."
+
+Down-delegation example: once a plan is settled the execution drops in difficulty — say from a needed 8/10 to 6/10 — so a competent-but-cheaper model now clears the bar; spawn the execution as a separable chunk to `Sonnet+medium` and review its artifact (ADR-0004). Not because Sonnet codes better, but because the hard part (the plan) is done and the cheapest adequate model wins.
+
+**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ Opus+high`. It's a passive decision log, not a prompt: the don't-nag rule above governs the *gate* (it asks you to act), never the signal (it only reports), so the signal fires at every task boundary even when the decision is "inline, unchanged" — the case that was previously invisible. When the outcome is a high-consequence, low-reversibility task done *inline* — the one case that forfeits the executor/reviewer separation a spawn gets for free (ADR-0004) — append the verifiable criterion you'll self-check against. _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
 
 ## 4. Apply the peak-working-set veto
 
@@ -59,15 +64,15 @@ A criterion is verifiable when checking it is *independent of* and cheaper than 
 - **Reproducible/executable** — it runs, reproduces, resolves (tests and typechecks are the coding instances).
 - **Checklist coverage** — every required element present, each item separately checkable.
 
-## Roster (maintained — last checked 2026-06-23)
+## Roster (maintained — last checked 2026-06-25)
 
 The one fact that goes stale on vendor changes. A *list*, not a difficulty→model mapping. Edit only this block when models change; the steps above never change. Update the date when you re-check.
 
 | Tier (weak→strong) | Model id | Context window | Cost note |
 |---|---|---|---|
 | cheap-bulk | `claude-haiku-4-5-20251001` | verify before relying | cheapest |
-| solid-mid | `claude-sonnet-4-6` | 1M-capable, **but Claude Code defaults to 200K — needs `/extra-usage`, which burns usage credits** | treat as 200K unless 1M confirmed for the session |
-| frontier | `claude-opus-4-8` | 1M (free on Max/Team/Enterprise; `/extra-usage` on Pro) | main session lives here |
+| solid-mid | `claude-sonnet-4-6` | native 1M (doc-confirmed 2026-06-25), **but this session surfaces ~200K — 1M needs `/extra-usage`, which burns credits** | treat as 200K for the veto unless 1M confirmed this session |
+| frontier | `claude-opus-4-8` | 1M (free on Max/Team/Enterprise; `/extra-usage` on Pro) | main session lives here (Opus+high) |
 
-- Effort scale: `low < medium < high < max` (settable per subagent via frontmatter or spawn param).
+- Effort scale: `low < medium < high < xhigh < max` (settable per subagent via frontmatter or spawn param). `xhigh`: Opus 4.7+/Fable/Mythos only — not Sonnet 4.6 or Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
 - `claude-fable-5` exists but is unclassified here — verify its tier and window before routing to it.
