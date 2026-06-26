@@ -1,5 +1,7 @@
 # Context economy is a co-equal spawn/inline driver
 
+> **Status** Accepted · **Amends** [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md) · **Relates to** [ADR-0005](0005-inline-routing-signal-vs-gate.md)
+
 The original spawn rule (ADR-0003) gated on a single driver: the needed *profile* differs from the baseline enough to matter. That misses a second, independent reason to move a task off inline — what the main session has to *carry* afterward.
 
 A task's process can be either a cost or an asset to the main context:

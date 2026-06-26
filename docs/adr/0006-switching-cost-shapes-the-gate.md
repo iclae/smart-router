@@ -1,5 +1,7 @@
 # Switching cost shapes the effort-gate
 
+> **Status** Accepted · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md)
+
 Changing the main session's model or effort mid-stream makes Claude Code re-read the full accumulated history on the next message (cache invalidated, all input tokens reprocessed). The main session is the long-context accumulator (ADR-0002), so this **re-read tax** scales with how far the session has run — a late switch on a near-1M context is expensive in both latency and usage credits.
 
 The router induces exactly one kind of main-session switch: the effort **gate** (the main is locked to Opus, so the model never changes; `/effort` is the only knob, and it's user-level). So the re-read tax is, specifically, a cost of the gate. Three rules follow:

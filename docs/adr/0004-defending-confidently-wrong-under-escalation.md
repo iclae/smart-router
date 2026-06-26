@@ -1,5 +1,7 @@
 # Defending against confidently-wrong under-escalation
 
+> **Status** Accepted · **Relates to** [ADR-0005](0005-inline-routing-signal-vs-gate.md)
+
 A model that confidently believes it can do a task it actually can't produces no felt strain, so no introspective check (cheap-peek, round-up) can catch it. We defend this structurally, not by self-judgment, in three layers ordered by reliability.
 
 1. **Bind the task to a verifiable criterion.** Self-assessment asks "what independent, cheaper check tells done-right from done-wrong?" — not "do I feel capable?". When such a check exists, a confidently-wrong result fails it regardless of confidence. This is domain-agnostic (re-derivation, check-against-source, consistency/constraint, reproducible/executable, checklist coverage), not coding-specific. Primary defense; dissolves the problem when the task is verifiable.

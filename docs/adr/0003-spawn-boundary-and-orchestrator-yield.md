@@ -1,5 +1,8 @@
 # Spawn boundary, peak-working-set veto, and orchestrator yield
 
+> **Status** Accepted · **Amended by** [ADR-0007](0007-context-economy-spawn-driver.md) · **Relates to** [ADR-0006](0006-switching-cost-shapes-the-gate.md)
+> **Live rule** SKILL.md §3
+
 Three rules bound when the router acts:
 
 1. **Spawn on a power *or* context-economy driver, gated by separability and a floor** — spawn when *either* the needed model differs from Opus enough to matter (down to Sonnet/Haiku) *or* context economy calls for it (ADR-0007), *and* the task is a self-contained sub-problem whose result returns as a compact artifact, *and* it clears the floor (small enough that main just does it → the fixed brief+cold-start cost outweighs the saving, so don't spawn). A hard task that is the main through-line is not spawned (it would make the weaker main a relay for a result it can't evaluate). Pure effort is never on its own a spawn trigger: Opus is the top model and the baseline is `Opus+high` (ADR-0002), so a task that needs only *more* effort on the through-line is a human gate, and one that needs *less* just stays inline.

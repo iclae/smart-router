@@ -1,5 +1,7 @@
 # Judgment lives in the model, facts live in a roster list
 
+> **Status** Accepted
+
 The difficulty→model decision is delegated to the main model at runtime, not encoded as a maintained difficulty→model table. The only maintained artifact is a **roster**: a flat list of current models ordered weakest→strongest, each with its context-window size and caveats.
 
 ## Considered Options

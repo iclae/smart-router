@@ -1,5 +1,7 @@
 # Inline routing signal, distinct from the gate
 
+> **Status** Accepted · **Relates to** [ADR-0004](0004-defending-confidently-wrong-under-escalation.md), [ADR-0007](0007-context-economy-spawn-driver.md)
+
 The router has three outcomes — spawn, inline, gate — but only two were visible. A spawn shows a subagent; a gate shows an escalation prompt. The **inline** outcome was silent: the router sized the task, decided `Opus+high` was right, and just proceeded. From the outside this is indistinguishable from the router never having fired, so a correct "inline, unchanged" decision looked like a no-op. We make every task boundary emit a one-line **routing signal** of its decision, whatever the outcome.
 
 The apparent obstacle is the existing `don't-nag` rule (step 3). Always announcing seems to violate it. The resolution is that the rule and the signal target different objects:

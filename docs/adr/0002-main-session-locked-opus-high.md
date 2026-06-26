@@ -1,5 +1,7 @@
 # Main session is locked to Opus + high
 
+> **Status** Accepted · **Relates to** [ADR-0004](0004-defending-confidently-wrong-under-escalation.md), [ADR-0006](0006-switching-cost-shapes-the-gate.md)
+
 The main session always runs `Opus+high` and offloads off-profile work to subagents, rather than switching its own model/effort per task.
 
 `high` — not the earlier `medium` — because the official effort guidance for Opus 4.8 makes `high` the default on every surface (Claude Code included) and tells coding/agentic users to *start* at `xhigh`, stepping down to `medium` only after measuring that quality holds on their evals. The main session is exactly an agentic-coding surface, and we had no such measurement: locking it below the default was an un-measured downgrade the docs caution against.
