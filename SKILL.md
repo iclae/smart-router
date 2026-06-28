@@ -14,7 +14,7 @@ If the current workflow is already run by a skill that self-routes model/effort/
 
 ## 2. Size the profile
 
-Judge the task's needed **Profile** by introspection — how hard is the reasoning, how big is the working set — not by a fixed difficulty→model table. Map the felt difficulty onto the current **Roster** below for the model; pick effort separately (mechanical → low; deep deliberation → high/max). **Round up when unsure** — a wrongly-high profile wastes some tokens; a wrongly-low one produces a wrong result that costs far more to catch and redo. _Done when:_ you have a concrete (model, effort) for the task.
+Judge the task's needed **Profile** by introspection — how hard is the reasoning, how big is the working set — not by a fixed difficulty→model table. Map the felt difficulty onto the current **Roster** below for the model; pick effort separately (mechanical → low; deep deliberation → high/max). **Round up when unsure** — a wrongly-high profile wastes some tokens; a wrongly-low one produces a wrong result that costs far more to catch and redo. The effort you pick here is the **subagent's** effort, applied only when you down-delegate (step 3); it is *not* a dial for the main session, which stays locked at Opus+high (ADR-0002) — so a sub-high number here never means "drop the main to it." _Done when:_ you have a concrete (model, effort) for the task.
 
 ## 3. Spawn, do inline, or gate
 
@@ -24,7 +24,7 @@ Two independent forces pull a task off inline; **either** alone can justify a sp
 
 Spawn when one force holds **and** both gates pass: the task is a self-contained sub-problem returning a compact artifact, **and** it clears the floor (for a context-economy spawn the floor is the *volume of process avoided*, not difficulty).
 
-Otherwise stay **inline** — including when the process is worth *retaining* as basis for later work: a spawn would discard the trail the main will need, so inline beats spawn there even if the task looks separable.
+Otherwise stay **inline** — including when the process is worth *retaining* as basis for later work: a spawn would discard the trail the main will need, so inline beats spawn there even if the task looks separable. Inline always runs at the locked Opus+high regardless of the effort sized in step 2; never lower the main session for a light task — the gate below only ever moves effort *up*.
 
 One case still needs a **human gate**: a task that needs more *effort* but is the main through-line (not spawnable). You cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort xhigh." Gate only high-consequence, low-reversibility tasks; don't nag. Two rules shape it (ADR-0006): **gate early** — raise it at the first boundary where heavy work is foreseeable; and **prefer a spawn** whenever the heavy work is separable. A late, non-separable gate must name its cost: "this re-reads the full history."
 
