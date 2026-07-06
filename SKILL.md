@@ -64,15 +64,15 @@ A criterion is verifiable when checking it is *independent of* and cheaper than 
 - **Reproducible/executable** — it runs, reproduces, resolves (tests and typechecks are the coding instances).
 - **Checklist coverage** — every required element present, each item separately checkable.
 
-## Roster (maintained — last checked 2026-06-25)
+## Roster (maintained — last checked 2026-07-02)
 
 The one fact that goes stale on vendor changes. A *list*, not a difficulty→model mapping. Edit only this block when models change; the steps above never change. Update the date when you re-check.
 
 | Tier (weak→strong) | Model id | Context window | Cost note |
 |---|---|---|---|
 | cheap-bulk | `claude-haiku-4-5-20251001` | verify before relying | cheapest |
-| solid-mid | `claude-sonnet-4-6` | native 1M (doc-confirmed 2026-06-25), **but this session surfaces ~200K — 1M needs `/extra-usage`, which burns credits** | treat as 200K for the veto unless 1M confirmed this session |
+| solid-mid | `claude-sonnet-5` | native 1M — confirmed available this session (2026-07-02) | use full 1M for the veto |
 | frontier | `claude-opus-4-8` | 1M (free on Max/Team/Enterprise; `/extra-usage` on Pro) | main session lives here (Opus+high) |
 
-- Effort scale: `low < medium < high < xhigh < max` (settable per subagent via frontmatter or spawn param). `xhigh`: Opus 4.7+/Fable/Mythos only — not Sonnet 4.6 or Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
+- Effort scale: `low < medium < high < xhigh < max` (settable per subagent via frontmatter or spawn param). `xhigh`: Fable/Mythos/Opus 4.7+/Sonnet 5 — not Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
 - `claude-fable-5` exists but is unclassified here — verify its tier and window before routing to it.
