@@ -41,7 +41,7 @@ _Avoid_: relevant context, background
 The four-part contract handed to a subagent: objective + return shape / load-bearing context (pointers over pastes) / boundaries / compact return format.
 
 **Yield rule**:
-When the current workflow is already owned by a skill that self-routes model/effort/spawn (linear-task-worker, devflow), the router stands down. One orchestrator at a time.
+When the current workflow is already owned by an orchestrator skill — one that self-routes model/effort/spawn, whatever it's called — the router stands down. One orchestrator at a time.
 
 **Self-assessment**:
 The router's difficulty check, fired only at task boundaries — each new user request, or when the main session carves off a clearly self-contained, clearly off-profile sub-block. Not per tool call.

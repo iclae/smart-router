@@ -10,7 +10,7 @@ Run these at every **task boundary** — a new user request, or when you carve o
 
 ## 1. Yield if an orchestrator owns routing
 
-If the current workflow is already run by a skill that self-routes model/effort/spawn (e.g. `linear-task-worker`, `devflow`), stand down — that skill is the orchestrator. One orchestrator at a time. _Done when:_ you've confirmed no such skill is driving, or handed control to it.
+If the current workflow is already run by a skill that self-routes model/effort/spawn (an orchestrator skill, whatever it's called in this setup), stand down — that skill owns routing. One orchestrator at a time. _Done when:_ you've confirmed no such skill is driving, or handed control to it.
 
 ## 2. Size the profile
 

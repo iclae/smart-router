@@ -9,7 +9,7 @@ Three rules bound when the router acts:
 
 2. **Peak-working-set veto** — applied *after* the difficulty judgment. Never route a task whose peak simultaneous working set may exceed a model's window to that model. Choose the cheapest model whose window covers the peak; when the working set is unknown, treat it as large. This vetoes on *peak*, not total volume — high-volume/low-working-set tasks (rename across many files, run a test suite) stay safely on cheap models.
 
-3. **Yield to orchestrators** — when the current workflow is already owned by a skill that self-routes model/effort/spawn (linear-task-worker, devflow), the router stands down. One orchestrator at a time.
+3. **Yield to orchestrators** — when the current workflow is already owned by a skill that self-routes model/effort/spawn (an orchestrator skill, whatever it's called in this setup), the router stands down. One orchestrator at a time.
 
 ## Consequences
 
