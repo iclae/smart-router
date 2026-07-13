@@ -8,7 +8,7 @@ A model that confidently believes it can do a task it actually can't produces no
 
 2. **Executor/reviewer separation for down-delegation.** The Opus main substantively reviews a weaker subagent's artifact against the criterion (not rubber-stamp). Free — main already integrates. Catches confident-wrong from below.
 
-3. **Human gate for up-delegation / main-line, high-stakes + low-reversibility.** Main is the weaker party when delegating up and can't review a smarter result, and can't self-catch a main-line blind spot. The only backstop is surfacing the routing decision to the user — but only when the task is high-consequence and hard to reverse, to avoid nagging.
+3. **Human gate for up-delegation / main-line, high-stakes + low-reversibility.** Main is the weaker party when delegating up and can't review a smarter result, and can't self-catch a main-line blind spot. The only backstop is surfacing the routing decision to the user — but only when the task is high-consequence and hard to reverse, to avoid nagging. This gate **fires predictively, not reactively**: at the first boundary where heavy work is foreseeable, never on felt strain. The confidently-wrong case produces no strain, so a reactive gate (one that waits for the model to feel the task is too hard) never fires for exactly the case layer 3 exists to catch — predictiveness is the load-bearing condition that makes the gate cover what it must.
 
 ## Consequences
 
