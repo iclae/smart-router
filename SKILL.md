@@ -14,7 +14,7 @@ If the current workflow is already run by a skill that self-routes model/effort/
 
 ## 2. Size the profile
 
-Judge the task's needed **Profile** by introspection — how hard is the reasoning, how big is the working set — not by a fixed difficulty→model table. Map the felt difficulty onto the current **Roster** below for the model; pick effort separately (mechanical → low; deep deliberation → high/max). **Round up when unsure** — a wrongly-high profile wastes some tokens; a wrongly-low one produces a wrong result that costs far more to catch and redo. The effort you pick here is the **subagent's** effort, applied only when you down-delegate (step 3); it is *not* a dial for the main session, which stays locked at Opus+high (ADR-0002) — so a sub-high number here never means "drop the main to it." _Done when:_ you have a concrete (model, effort) for the task.
+Judge the task's needed **Profile** by introspection — how hard is the reasoning, how big is the working set — not by a fixed difficulty→model table. Map the felt difficulty onto the current **Roster** below for the model; pick effort separately (mechanical → low; deep deliberation → high/max). **Round up when unsure** — a wrongly-high profile wastes some tokens; a wrongly-low one produces a wrong result that costs far more to catch and redo. The effort you pick here is the **subagent's** effort, applied only when you down-delegate (step 3); it is *not* a dial for the main session, which stays locked at Opus+high (ADR-0002) — so a sub-high number here never means "drop the main to it." This effort is realized by selecting a subagent **type** pre-defined with it, not by passing it at the spawn call, which carries `model` only (ADR-0009). _Done when:_ you have a concrete (model, effort) for the task.
 
 ## 3. Spawn, do inline, or gate
 
@@ -74,5 +74,5 @@ The one fact that goes stale on vendor changes. A *list*, not a difficulty→mod
 | solid-mid | `claude-sonnet-4-6` | native 1M (doc-confirmed 2026-06-25), **but this session surfaces ~200K — 1M needs `/extra-usage`, which burns credits** | treat as 200K for the veto unless 1M confirmed this session |
 | frontier | `claude-opus-4-8` | 1M (free on Max/Team/Enterprise; `/extra-usage` on Pro) | main session lives here (Opus+high) |
 
-- Effort scale: `low < medium < high < xhigh < max` (settable per subagent via frontmatter or spawn param). `xhigh`: Opus 4.7+/Fable/Mythos only — not Sonnet 4.6 or Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
+- Effort scale: `low < medium < high < xhigh < max` (set per subagent via the `effort:` frontmatter field in the subagent definition file, **not** the spawn call — ADR-0009). `xhigh`: Opus 4.7+/Fable/Mythos only — not Sonnet 4.6 or Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
 - `claude-fable-5` exists but is unclassified here — verify its tier and window before routing to it.
