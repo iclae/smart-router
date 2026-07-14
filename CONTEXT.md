@@ -41,7 +41,7 @@ _Avoid_: relevant context, background
 The four-part contract handed to a subagent: objective + return shape / load-bearing context (pointers over pastes) / boundaries / compact return format.
 
 **Yield rule**:
-When the current workflow is already owned by a skill that self-routes model/effort/spawn (linear-task-worker, devflow), the router stands down. One orchestrator at a time.
+When the current workflow is already owned by an orchestrator skill — one that self-routes model/effort/spawn, whatever it's called — the router stands down. One orchestrator at a time.
 
 **Self-assessment**:
 The router's difficulty check, fired only at task boundaries — each new user request, or when the main session carves off a clearly self-contained, clearly off-profile sub-block. Not per tool call.
@@ -62,5 +62,5 @@ A spawn/inline driver co-equal with the model-power delta, cutting both ways: sp
 _Avoid_: context hygiene (too one-directional — it cuts both ways)
 
 **Re-read tax** (switching cost):
-In Claude Code, changing the main session's model or effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run.
+In Claude Code, changing the main session's effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run. A fact of the **gate** (the one main-session switch the router induces), not a routing condition — the full two-sided derivation lives in ADR-0002.
 _Avoid_: switching overhead

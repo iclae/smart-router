@@ -10,11 +10,11 @@ Run these at every **task boundary** — a new user request, or when you carve o
 
 ## 1. Yield if an orchestrator owns routing
 
-If the current workflow is already run by a skill that self-routes model/effort/spawn (e.g. `linear-task-worker`, `devflow`), stand down — that skill is the orchestrator. One orchestrator at a time. _Done when:_ you've confirmed no such skill is driving, or handed control to it.
+If the current workflow is already run by a skill that self-routes model/effort/spawn (an orchestrator skill, whatever it's called in this setup), stand down — that skill owns routing. One orchestrator at a time. _Done when:_ you've confirmed no such skill is driving, or handed control to it.
 
 ## 2. Size the profile
 
-Judge the task's needed **Profile** by introspection — how hard is the reasoning, how big is the working set — not by a fixed difficulty→model table. Map the felt difficulty onto the current **Roster** below for the model; pick effort separately (mechanical → low; deep deliberation → high/max). **Round up when unsure** — a wrongly-high profile wastes some tokens; a wrongly-low one produces a wrong result that costs far more to catch and redo. The effort you pick here is the **subagent's** effort, applied only when you down-delegate (step 3); it is *not* a dial for the main session, which stays locked at Opus+high (ADR-0002) — so a sub-high number here never means "drop the main to it." _Done when:_ you have a concrete (model, effort) for the task.
+Judge the task's needed **Profile** by introspection — how hard is the reasoning, how big is the working set — not by a fixed difficulty→model table. Map the felt difficulty onto the current **Roster** below for the model; pick effort separately (mechanical → low; deep deliberation → high/max). **Round up when unsure** — a wrongly-high profile wastes some tokens; a wrongly-low one produces a wrong result that costs far more to catch and redo. The effort you pick here is the **subagent's** effort, applied only when you down-delegate (step 3); it is *not* a dial for the main session, which stays locked at Opus+high (ADR-0002) — so a sub-high number here never means "drop the main to it." This effort is realized by selecting a subagent **type** pre-defined with it, not by passing it at the spawn call, which carries `model` only (ADR-0009). _Done when:_ you have a concrete (model, effort) for the task.
 
 ## 3. Spawn, do inline, or gate
 
@@ -26,7 +26,7 @@ Spawn when one force holds **and** both gates pass: the task is a self-contained
 
 Otherwise stay **inline** — including when the process is worth *retaining* as basis for later work: a spawn would discard the trail the main will need, so inline beats spawn there even if the task looks separable. Inline always runs at the locked Opus+high regardless of the effort sized in step 2; never lower the main session for a light task — the gate below only ever moves effort *up*.
 
-One case still needs a **human gate**: a task that needs more *effort* but is the main through-line (not spawnable). You cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort xhigh." Gate only high-consequence, low-reversibility tasks; don't nag. Two rules shape it (ADR-0006): **gate early** — raise it at the first boundary where heavy work is foreseeable; and **prefer a spawn** whenever the heavy work is separable. A late, non-separable gate must name its cost: "this re-reads the full history."
+One case still needs a **human gate**: a task that needs more *effort* but is the main through-line (not spawnable). You cannot raise your own session effort (`/effort` is user-level), so surface it: "this needs higher effort, consider /effort xhigh." Gate only high-consequence, low-reversibility tasks; don't nag. The gate **fires predictively, not reactively** (ADR-0004): raise it at the first boundary where heavy work is foreseeable — the first user-request boundary, with carve-off mid-task only as a fallback — *never* wait for felt strain, because the confidently-wrong case produces none and a reactive gate would never fire for exactly what it must catch.
 
 Down-delegation calibration: once the hard part (e.g. the plan) is settled, execution drops in difficulty — spawn the separable chunk to the cheapest adequate model (e.g. `Sonnet+medium`) and review its artifact (ADR-0004).
 
@@ -74,5 +74,5 @@ The one fact that goes stale on vendor changes. A *list*, not a difficulty→mod
 | solid-mid | `claude-sonnet-5` | native 1M — confirmed available this session (2026-07-02) | use full 1M for the veto |
 | frontier | `claude-opus-4-8` | 1M (free on Max/Team/Enterprise; `/extra-usage` on Pro) | main session lives here (Opus+high) |
 
-- Effort scale: `low < medium < high < xhigh < max` (settable per subagent via frontmatter or spawn param). `xhigh`: Fable/Mythos/Opus 4.7+/Sonnet 5 — not Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
+- Effort scale: `low < medium < high < xhigh < max` (set per subagent via the `effort:` frontmatter field in the subagent definition file, **not** the spawn call — ADR-0009). `xhigh`: Fable/Mythos/Opus 4.7+/Sonnet 5 — not Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
 - `claude-fable-5` exists but is unclassified here — verify its tier and window before routing to it.
