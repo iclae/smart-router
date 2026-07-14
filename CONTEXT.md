@@ -62,5 +62,5 @@ A spawn/inline driver co-equal with the model-power delta, cutting both ways: sp
 _Avoid_: context hygiene (too one-directional — it cuts both ways)
 
 **Re-read tax** (switching cost):
-In Claude Code, changing the main session's model or effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run.
+In Claude Code, changing the main session's effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run. A fact of the **gate** (the one main-session switch the router induces), not a routing condition — the full two-sided derivation lives in ADR-0002.
 _Avoid_: switching overhead

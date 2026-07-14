@@ -1,6 +1,6 @@
 # Spawn boundary, peak-working-set veto, and orchestrator yield
 
-> **Status** Accepted · **Amended by** [ADR-0007](0007-context-economy-spawn-driver.md) · **Relates to** [ADR-0006](0006-switching-cost-shapes-the-gate.md)
+> **Status** Accepted · **Amended by** [ADR-0007](0007-context-economy-spawn-driver.md)
 > **Live rule** SKILL.md §3
 
 Three rules bound when the router acts:
