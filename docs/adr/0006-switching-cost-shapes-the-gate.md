@@ -1,6 +1,14 @@
 # Switching cost shapes the effort-gate
 
-> **Status** Accepted · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md)
+> **Status** Superseded — content dispersed (see below), nothing here remains in force · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md)
+
+> **Supersession** — each rule and the re-read-tax fact moved to a single new home:
+> - **gate-early** → SKILL.md §3 up-gate clause, backed by [ADR-0004](0004-defending-confidently-wrong-under-escalation.md) predictiveness (look-ahead), no longer a named rule.
+> - **prefer-spawn-over-gate** → retired as an empty comparison once this tax was dropped ([#6](https://github.com/iclae/smart-router/issues/6)); the spawn driver is [ADR-0007](0007-context-economy-spawn-driver.md).
+> - **name-cost rule** → removed; not migrated.
+> - **the re-read-tax fact itself** → a one-sentence up-gate cost note in [ADR-0002](0002-main-session-locked-opus-high.md) ([#4](https://github.com/iclae/smart-router/issues/4)); the fact survives, but no longer as a routing condition.
+>
+> Kept verbatim below as audit trail only.
 
 Changing the main session's model or effort mid-stream makes Claude Code re-read the full accumulated history on the next message (cache invalidated, all input tokens reprocessed). The main session is the long-context accumulator (ADR-0002), so this **re-read tax** scales with how far the session has run — a late switch on a near-1M context is expensive in both latency and usage credits.
 
