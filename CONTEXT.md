@@ -13,7 +13,7 @@ A (model, effort) pair, e.g. `Opus+high`. The unit a task is sized against.
 _Avoid_: tier, config, level
 
 **Main session**:
-The long-lived session the user works in. Fixed at `Opus+high`. Plays router, orchestrator, and integrator — never the heavy laborer.
+The long-lived session the user works in. Its baseline is a **variable** the user sets at session start — model ∈ {Opus, Sonnet} (never Haiku), effort whatever the user chose — not a router-fixed `Opus+high`. The router adapts to the baseline it finds; it does not assume a fixed value. Plays router, orchestrator, and integrator — never the heavy laborer.
 _Avoid_: parent, host
 
 **Subagent**:
@@ -21,7 +21,7 @@ A cold-started agent the main session spawns for one off-profile task, returning
 _Avoid_: child, worker, helper
 
 **Up-delegation / Down-delegation**:
-Spawning a subagent with more power (higher effort — Opus is already the top model) / less power (cheaper model, lower effort). Down is reliable; up self-assessment is weaker and leans on "round up when unsure".
+Spawning a subagent with more power / less power. **Down** = cheaper model or lower effort (reliable; main reviews the artifact — ADR-0004 layer 2). **Up** is now two-dimensional on the main session: raise effort (same model) or raise model (Sonnet→Opus). The main cannot self-escalate either (`/effort`, `/model` are user-level), so up is surfaced as a gate and the dimension choice is left to the user.
 
 **Roster**:
 The single maintained list of currently-available models, ordered weakest→strongest, with each model's context-window size and caveats. A *list*, not a difficulty→model mapping — the only thing that goes stale when a vendor ships a new model.
@@ -47,7 +47,7 @@ When the current workflow is already owned by an orchestrator skill — one that
 The router's difficulty check, fired only at task boundaries — each new user request, or when the main session carves off a clearly self-contained, clearly off-profile sub-block. Not per tool call.
 
 **Routing signal**:
-The one-line, passive announcement the router emits at every task boundary stating the chosen outcome (e.g. `⟢ router: inline @ Opus+high`) — a decision *log*, not a prompt, as opposed to the **gate** (an active escalation prompt that asks the user to act).
+The one-line, passive announcement the router emits at every task boundary stating the chosen outcome (e.g. `⟢ router: inline @ <baseline>`) — a decision *log*, not a prompt, as opposed to the **gate** (an active escalation prompt that asks the user to act).
 _Avoid_: prompt, notification, log line
 
 **Verifiable criterion**:
@@ -62,5 +62,5 @@ A spawn/inline driver co-equal with the model-power delta, cutting both ways: sp
 _Avoid_: context hygiene (too one-directional — it cuts both ways)
 
 **Re-read tax** (switching cost):
-In Claude Code, changing the main session's effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run. A fact of the **gate** (the one main-session switch the router induces), not a routing condition — the full two-sided derivation lives in ADR-0002.
+In Claude Code, changing the main session's effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run. A fact of the **gate** (the one main-session switch the router induces), not a routing condition — the full two-sided derivation lives in ADR-0002 (now Superseded by ADR-0010; the re-read-tax *fact* survives, only its former role as a routing condition was retired).
 _Avoid_: switching overhead

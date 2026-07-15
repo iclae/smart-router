@@ -1,6 +1,6 @@
 # Effort on spawn: set in the subagent file, not the spawn call
 
-> **Status** Accepted · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md)
+> **Status** Accepted · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md) (Superseded by [ADR-0010](0010-baseline-variable-not-locked-opus-high.md)), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md)
 > **Live rule** SKILL.md §2 (clarified), Roster effort note (corrected)
 
 A subagent's **model** is settable at the spawn call (the Agent tool takes a `model` argument); its **effort** is not — the spawn call exposes no `effort` parameter. Effort is set instead in the **subagent definition file** (`frontmatter`'s `effort:` field), which overrides the session effort for the duration that subagent is active. The Claude Agent SDK confirms the split: `AgentDefinition` (the type a subagent file maps to) carries both `model` and `effort` (added in CHANGELOG #565, with `xhigh` in #914), while the spawn call carries only `model`.
@@ -23,4 +23,4 @@ The Roster's older claim "settable per subagent via frontmatter **or spawn param
 
 ## Consequences
 
-§2's effort sizing stays, and now names its realization: the profile is realized by a subagent **type**, not a spawn **argument**. Down-delegation, the power trigger, the gate, and the inherited-by-default behavior when no effort is declared all stand as before — the correction is to *which channel* carries effort, not to whether effort is controllable. The Roster's effort note drops the false "spawn param" half and points to this ADR. No change to the main-session lock (ADR-0002): the main still cannot change its own effort, only select subagent types whose declared effort applies for the duration they are active.
+§2's effort sizing stays, and now names its realization: the profile is realized by a subagent **type**, not a spawn **argument**. Down-delegation, the power trigger, the gate, and the inherited-by-default behavior when no effort is declared all stand as before — the correction is to *which channel* carries effort, not to whether effort is controllable. The Roster's effort note drops the false "spawn param" half and points to this ADR. Unchanged by ADR-0010's making the baseline variable: the main still cannot change its own effort — it only selects subagent types whose declared effort applies for the duration they are active.
