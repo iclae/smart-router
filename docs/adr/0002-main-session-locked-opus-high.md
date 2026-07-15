@@ -1,6 +1,8 @@
 # Main session is locked to Opus + high
 
-> **Status** Accepted · **Relates to** [ADR-0004](0004-defending-confidently-wrong-under-escalation.md)
+> **Status** Superseded by [ADR-0010](0010-baseline-variable-not-locked-opus-high.md) — Sonnet 5's default 1M window voided the big-window argument, the effort assumption was an overreach, and the gate framework removed the ratchet's raise-back ground (its lowered-window ground survives as residual). Kept verbatim below as audit trail only.
+>
+> **Original status** Accepted · **Relates to** [ADR-0004](0004-defending-confidently-wrong-under-escalation.md)
 
 The main session always runs `Opus+high` and offloads off-profile work to subagents, rather than switching its own model/effort per task.
 
