@@ -41,7 +41,7 @@ Which subagent to spawn:
 | Need | Type | Where it comes from |
 |---|---|---|
 | Down-delegation at a specific effort | `effort-low` / `effort-medium` / `effort-high`, with `model` passed at the spawn call | `agents/`, installed (ADR-0013) |
-| Read-only exploration, cheaply | `explore-haiku` — **name it explicitly**; the built-in `Explore` does not yield to a same-named override | `agents/`, installed |
+| Read-only exploration, cheaply | `explore-haiku` — **name it explicitly**; it can't shadow the built-in `Explore` (ADR-0013) | `agents/`, installed |
 | Read-only exploration, inheriting the baseline model | built-in `Explore` | — |
 | Peer-spawn for context economy, same profile | built-in `general-purpose` (inherits both) | — |
 | Anything else where inherited effort is fine | built-in `general-purpose` | — |
@@ -94,5 +94,5 @@ The one fact that goes stale on vendor changes. A *list*, not a difficulty→mod
 
 - Effort scale: `low < medium < high < xhigh < max` (set per subagent via the `effort:` frontmatter field in the subagent definition file, **not** the spawn call — ADR-0009). `xhigh`: Fable/Mythos/Opus 4.7+/Sonnet 5 — not Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
 - `claude-fable-5` exists but is unclassified here — verify its tier and window before routing to it.
-- Pareto note (checked 2026-07-16, from a user-supplied capability/cost/token benchmark): `Sonnet+medium` was dominated by `Opus+low` on all three axes, and `Sonnet+high` by `Opus+high` — dominated pairs are not picks while this holds. A *note*, not a rule (ADR-0001): it is a snapshot of today's lineup, so re-check it on any vendor change and correct it here only. The `effort-*` templates are deliberately semantic (how much thinking the task needs) and encode none of this.
-- `effort:` observability (checked 2026-07-17): **unverified, and not currently verifiable.** The field is documented as overriding session effort for the subagent, but the platform exposes no way to read a subagent's active effort at runtime — so nothing confirms the `effort-*` templates take effect, and no evidence here says they don't. Tracked as the first concrete need in [#13](https://github.com/iclae/smart-router/issues/13).
+- Pareto note (checked 2026-07-16, from a user-supplied capability/cost/token benchmark): `Sonnet+medium` was dominated by `Opus+low` on all three axes, and `Sonnet+high` by `Opus+high` — dominated pairs are not picks while this holds. A *note*, not a rule (ADR-0001): a snapshot of today's lineup, so re-check on any vendor change and correct it here only.
+- `effort:` on a subagent is **documented to override session effort, and unverified** — the platform exposes no way to observe it (ADR-0013). Don't spend tokens trying to confirm a spawn's effort took; you can't.

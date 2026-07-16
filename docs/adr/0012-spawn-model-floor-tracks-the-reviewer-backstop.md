@@ -1,6 +1,6 @@
 # The spawn model floor tracks the reviewer backstop
 
-> **Status** Accepted · **Relates to** [ADR-0004](0004-defending-confidently-wrong-under-escalation.md) (the two layers this rule spends), [ADR-0010](0010-baseline-variable-not-locked-opus-high.md) (the main-session floor this mirrors)
+> **Status** Accepted · **Relates to** [ADR-0004](0004-defending-confidently-wrong-under-escalation.md) (the two layers this rule spends), [ADR-0010](0010-baseline-variable-not-locked-opus-high.md) (the main-session floor this mirrors), [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (ships `explore-haiku`, the mitigation this ADR's residual leans on)
 > **Live rule** SKILL.md §3 (spawn model floor)
 
 The main session's floor is Sonnet, never Haiku (ADR-0010). A spawned subagent's floor is Haiku — sometimes. This looks like an inconsistency and isn't: both floors are the same rule read at two sites. **The floor is Haiku exactly when a working executor/reviewer backstop stands behind the output, and Sonnet when none does.**

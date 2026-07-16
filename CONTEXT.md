@@ -67,7 +67,7 @@ A domain-agnostic check whose evaluation is *independent of* and cheaper than pr
 _Avoid_: success criteria, acceptance test (too coding/spec-bound)
 
 **Spawn model floor**:
-The weakest model a task may be spawned to. Haiku when a verifiable criterion is nameable *and* the main will check the artifact against it; Sonnet when either fails. Not a separate rule from the main session's Sonnet floor — the same rule, conditioned on whether an executor/reviewer backstop actually stands behind the output (ADR-0012).
+The weakest model a task may be spawned to: Haiku when a verifiable criterion is nameable *and* the main will check the artifact against it, Sonnet when either fails (ADR-0012).
 _Avoid_: minimum model, model floor (ambiguous — the main session has one too)
 
 **Executor/reviewer separation**:
