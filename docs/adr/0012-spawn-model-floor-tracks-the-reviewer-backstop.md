@@ -26,7 +26,7 @@ This is not a third rule bolted next to ADR-0010's. It is ADR-0010's rule with i
 
 Haiku's characteristic failure on retrieval is **confident incompleteness** — stopping early, querying weakly, and reporting the result as settled. Reviewing the *artifact* cannot see this class of error: the main receives "no match found," which is indistinguishable from a true absence when the main cannot see the search that produced it. Layer 2 checks the answer, and the defect is in the question.
 
-This is why the Explore subagent returns the **search terms it used** alongside its findings: it converts part of an invisible process failure into a reviewable artifact, letting the main catch a wrong query even when it cannot catch a wrong conclusion. It is a partial fix — the main can now review the search *strategy*, but not whether the subagent stopped one directory short of the answer.
+This is why the `explore-haiku` subagent returns the **search terms it used** alongside its findings: it converts part of an invisible process failure into a reviewable artifact, letting the main catch a wrong query even when it cannot catch a wrong conclusion. It is a partial fix — the main can now review the search *strategy*, but not whether the subagent stopped one directory short of the answer.
 
 The remainder is accepted as **residual risk** on ADR-0004's terms: real, bounded by the criterion requirement above, and not closable with more prompt.
 
@@ -38,4 +38,4 @@ The remainder is accepted as **residual risk** on ADR-0004's terms: real, bounde
 
 ## Consequences
 
-The two floors stop being separate facts to remember: one condition (does a reviewer backstop actually stand behind this output?) explains both, and a reader who understands ADR-0010 already understands this. SKILL.md §3 carries the rule as action plus its calibration — Haiku needs a nameable criterion and a real review, otherwise Sonnet — and this ADR carries the derivation. The residual is Haiku's confident incompleteness on retrieval, partially mitigated by the Explore subagent's returned search terms, otherwise accepted.
+The two floors stop being separate facts to remember: one condition (does a reviewer backstop actually stand behind this output?) explains both, and a reader who understands ADR-0010 already understands this. SKILL.md §3 carries the rule as action plus its calibration — Haiku needs a nameable criterion and a real review, otherwise Sonnet — and this ADR carries the derivation. The residual is Haiku's confident incompleteness on retrieval, partially mitigated by `explore-haiku`'s returned search terms, otherwise accepted.
