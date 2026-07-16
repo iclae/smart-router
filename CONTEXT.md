@@ -47,8 +47,20 @@ When the current workflow is already owned by an orchestrator skill — one that
 The router's difficulty check, fired only at task boundaries — each new user request, or when the main session carves off a clearly self-contained, clearly off-profile sub-block. Not per tool call.
 
 **Routing signal**:
-The one-line, passive announcement the router emits at every task boundary stating the chosen outcome (e.g. `⟢ router: inline @ <baseline>`) — a decision *log*, not a prompt, as opposed to the **gate** (an active escalation prompt that asks the user to act).
+The one-line, passive announcement the router emits at every task boundary stating the chosen outcome (e.g. `⟢ router: inline @ <baseline>`) — a decision *log*, not a prompt, as opposed to the **Gate**.
 _Avoid_: prompt, notification, log line
+
+**Gate**:
+The router's one active outcome: a *prompt* interrupting the user to ask that the main session's power be raised — as opposed to the passive **Routing signal**. Recommends a direction, never a target level or a dimension, because the router cannot read its own runtime effort. Its shape and bounds are SKILL.md §3, its derivation ADR-0011.
+_Avoid_: warning, alert, nag
+
+**Task externals**:
+The properties the gate reads to decide "this needs more power" — verifiability (the strongest), consequence and reversibility, peak working set, shape — all visible before the work starts, and so readable when felt strain isn't (ADR-0004). Applied only once the task is known to be a through-line that can't be spawned off; separable work is a spawn question, not a gate one.
+_Avoid_: signals, symptoms, difficulty cues
+
+**Probe**:
+The bounded look the router may take while judging a gate: read-only tools answering the **Task externals** checklist, stopped the moment they're answered. Not the start of the work being judged.
+_Avoid_: investigation, spike, recon
 
 **Verifiable criterion**:
 A domain-agnostic check whose evaluation is *independent of* and cheaper than producing the work, yielding an observable pass/fail — the independence is what catches a confidently-wrong result, which shares the blind spot that produced it. The type menu and the gate-the-unverifiable rule live in SKILL.md §6.
