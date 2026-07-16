@@ -1,6 +1,6 @@
 # Main-session baseline is variable, not locked to Opus+high
 
-> **Status** Accepted · **Supersedes** [ADR-0002](0002-main-session-locked-opus-high.md) · **Relates to** [ADR-0011](0011-gate-direction-only-read-from-externals.md) (the gate framework this reversal leans on)
+> **Status** Accepted · **Supersedes** [ADR-0002](0002-main-session-locked-opus-high.md) · **Relates to** [ADR-0011](0011-gate-direction-only-read-from-externals.md) (the gate framework this reversal leans on), [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) (the same floor rule read at the spawn site)
 > **Live rule** SKILL.md §2 (baseline), §3 (up-gate is now model-or-effort)
 
 ADR-0002 fixed the main session at `Opus+high`. Two facts that held up that lock have since moved, and the gate framework ([ADR-0011](0011-gate-direction-only-read-from-externals.md), the effort/model-dimension handling) structurally weakens the third — emptying one of its two grounds, demoting the other to residual. The main session's baseline is now a **variable** the user sets at session start, within bounds; the router adapts to it rather than assuming it.
@@ -21,7 +21,7 @@ ADR-0002 fixed the main session at `Opus+high`. Two facts that held up that lock
 
 The main session's baseline is **variable**, set by the user at session start, bounded:
 
-- **Model ∈ {Opus, Sonnet}.** The main does not drop below Sonnet. Haiku is excluded from the main session: Haiku's residual risk (confidently-wrong output between a lower and the next raise) is too high for the long-lived accumulator, which has no executor/reviewer backstop of its own (its output goes straight to the user). (Haiku remains usable as a *spawned* subagent under the spawn model-floor rule, which lands in SKILL.md §3 with the spawn work — [#12](https://github.com/iclae/smart-router/issues/12).)
+- **Model ∈ {Opus, Sonnet}.** The main does not drop below Sonnet. Haiku is excluded from the main session: Haiku's residual risk (confidently-wrong output between a lower and the next raise) is too high for the long-lived accumulator, which has no executor/reviewer backstop of its own (its output goes straight to the user). (Haiku remains usable as a *spawned* subagent when that backstop does stand — [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) reads this same floor rule at the spawn site.)
 - **Effort ∈ whatever the user set.** The router does not assume `high`; it treats the session-start effort as the baseline.
 
 "Up" for the main session is now **two-dimensional** — effort (within the same model) or model (Sonnet→Opus). "Down" is symmetric in shape (either dimension) but, per the gate framework, lowering is not something the router proactively recommends; it's driven by a forward look and biased toward *not* lowering when unsure.
@@ -33,7 +33,7 @@ The router cannot read its own runtime effort, so it cannot distinguish "raise m
 ## Considered Options
 
 - **Keep the Opus+high lock (the superseded ADR-0002).** Its window argument is void (point 1), its effort assumption was an overreach (point 2), and its ratchet defense is emptied by the gate framework (point 3). Three of its four legs removed; the fourth (meta-cognition is light at `high`) survives only as a *default*, not a *lock* — and the default belongs to the model, not the router.
-- **Allow drop to Haiku on the main session.** Rejected: Haiku's residual risk is too high for the long-lived accumulator with no reviewer backstop. The main-session floor is Sonnet. (Haiku's use as a spawned subagent is governed separately, by the spawn model-floor rule, where reviewer separation applies.)
+- **Allow drop to Haiku on the main session.** Rejected: Haiku's residual risk is too high for the long-lived accumulator with no reviewer backstop. The main-session floor is Sonnet. (Haiku's use as a spawned subagent is governed by [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) — not a separate rule, but this one conditioned on the reviewer backstop that the main session never has.)
 - **Let the router pick the raise dimension (model vs effort).** Rejected; the dimension choice goes to the user, on [ADR-0011](0011-gate-direction-only-read-from-externals.md)'s argument.
 
 ## Consequences
