@@ -78,7 +78,7 @@ A spawn/inline driver co-equal with the model-power delta, cutting both ways: sp
 _Avoid_: context hygiene (too one-directional — it cuts both ways)
 
 **Falsifiable spawn prediction**:
-The clause a **context-economy** spawn's routing signal carries, naming what the main will use going forward (`[X]`) so the bet "the main needs only the result, not the process" becomes checkable. Falsified when the main later reaches back for the spawned-away process; the falsification rate lower-bounds how often the process-as-basis judgment (ADR-0007) misfires. The cheapest layer of #13's verification loop — power-delta spawns don't carry it. Emission is SKILL.md §3; derivation and limits are ADR-0016.
+The clause a **context-economy** spawn's routing signal carries, naming what the main will use going forward (`[X]`); falsified if the main later reaches back for the spawned-away process. Layer 1 of #13's verification loop — power-delta spawns don't carry it. Emission in SKILL.md §3, derivation in ADR-0016.
 _Avoid_: prediction, guess, estimate
 
 **Re-read tax** (switching cost):
