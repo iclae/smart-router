@@ -1,6 +1,6 @@
 # Subagent definitions ship as templates the user installs, not as bundled agents
 
-> **Status** Accepted · **Relates to** [ADR-0009](0009-effort-channel-is-subagent-file-not-spawn-param.md) (the channel this ADR has to deliver), [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) (the floor the types shipped here are spawned under), [ADR-0008](0008-documentation-architecture.md) (the architecture this ADR stretched), [ADR-0014](0014-five-document-types.md) (closed the gap this ADR left in ADR-0008)
+> **Status** Accepted · **Relates to** [ADR-0009](0009-effort-channel-is-subagent-file-not-spawn-param.md) (the channel this ADR has to deliver), [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) (the floor the types shipped here are spawned under), [ADR-0008](0008-documentation-architecture.md) (the architecture this ADR stretched), [ADR-0014](0014-five-document-types.md) (closed the gap this ADR left in ADR-0008), [ADR-0015](0015-router-is-model-invocable.md) (leans on this ADR's subagent load model to bound its residual)
 > **Live rule** SKILL.md §3 (division-of-labour table) and Roster (`effort:` note); the install procedure itself lives in `agents/README.md` (ADR-0014)
 
 SKILL.md §2 says a sized effort is realized by "selecting a subagent **type** pre-defined with it" (ADR-0009). That instruction is only executable if those types exist somewhere Claude Code registers them. They cannot ship with this skill.

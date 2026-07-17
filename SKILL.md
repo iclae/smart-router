@@ -1,7 +1,6 @@
 ---
 name: smart-router
-description: Right-size the model and effort per task — keep the main session as router and delegate off-profile work to subagents, adapting to the user-set baseline (model ∈ {Opus, Sonnet}, effort variable).
-disable-model-invocation: true
+description: Right-size the model and effort per task — keep the main session as router and delegate off-profile work to subagents, adapting to the user-set baseline (model ∈ {Opus, Sonnet}, effort variable). Apply at every task boundary; a subagent reading this stands down (it is the delegatee, not the router).
 ---
 
 A discipline the main session self-applies so heavy reasoning gets enough power and mechanical work doesn't burn it. The main session's baseline is a **variable** the user sets at session start — model ∈ {Opus, Sonnet}, effort whatever the user chose (ADR-0010) — and it plays router, never the heavy laborer. Vocabulary (Profile, Roster, Peak working set, Brief, Verifiable criterion, Yield) is defined in [`CONTEXT.md`](CONTEXT.md); the *why* behind each rule is in [`docs/adr/`](docs/adr/).
