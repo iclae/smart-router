@@ -77,6 +77,10 @@ The work and its check live in different contexts. Down-delegation gets this for
 A spawn/inline driver co-equal with the model-power delta, cutting both ways: spawn when the main needs only the *result* and the process to reach it is verbose (it would otherwise squat in the main context); keep inline when the process is worth *retaining* as basis for later work.
 _Avoid_: context hygiene (too one-directional — it cuts both ways)
 
+**Falsifiable spawn prediction**:
+The clause a **context-economy** spawn's routing signal carries, naming what the main will use going forward (`[X]`) so the bet "the main needs only the result, not the process" becomes checkable. Falsified when the main later reaches back for the spawned-away process; the falsification rate lower-bounds how often the process-as-basis judgment (ADR-0007) misfires. The cheapest layer of #13's verification loop — power-delta spawns don't carry it. Emission is SKILL.md §3; derivation and limits are ADR-0016.
+_Avoid_: prediction, guess, estimate
+
 **Re-read tax** (switching cost):
 In Claude Code, changing the main session's effort makes the next message re-read the full accumulated history; because the main is the long-context accumulator, the cost grows with how far the session has run. A fact of the **gate** (the one main-session switch the router induces), not a routing condition — the full two-sided derivation lives in ADR-0002 (now Superseded by ADR-0010; the re-read-tax *fact* survives, only its former role as a routing condition was retired).
 _Avoid_: switching overhead
