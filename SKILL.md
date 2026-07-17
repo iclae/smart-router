@@ -82,17 +82,17 @@ A criterion is verifiable when checking it is *independent of* and cheaper than 
 - **Reproducible/executable** — it runs, reproduces, resolves (tests and typechecks are the coding instances).
 - **Checklist coverage** — every required element present, each item separately checkable.
 
-## Roster (maintained — last checked 2026-07-02)
+## Roster (maintained — last checked 2026-07-17)
 
 The one fact that goes stale on vendor changes. A *list*, not a difficulty→model mapping. Edit only this block when models change; the steps above never change. Update the date when you re-check.
 
 | Tier (weak→strong) | Model id | Context window | Cost note |
 |---|---|---|---|
-| cheap-bulk | `claude-haiku-4-5-20251001` | verify before relying | cheapest |
-| solid-mid | `claude-sonnet-5` | native 1M — confirmed available this session (2026-07-02) | use full 1M for the veto |
+| cheap-bulk | `claude-haiku-4-5-20251001` | 200K (64K max output) — verified 2026-07-17 | cheapest ($1/$5 per MTok) |
+| solid-mid | `claude-sonnet-5` | native 1M | use full 1M for the veto |
 | frontier | `claude-opus-4-8` | 1M (free on Max/Team/Enterprise; `/extra-usage` on Pro) | the higher end of the main-session range (ADR-0010); Opus and Sonnet 5 both valid baselines |
+| apex | `claude-fable-5` | 1M (128K max output) — verified 2026-07-17 | $10/$50 per MTok, 2× Opus. **Not in the ADR-0010 baseline set** ({Opus, Sonnet}) — routing to it would be an ADR-0010 amendment, not a Roster edit. Quirks: thinking always on, raw reasoning never returned, safety classifiers may refuse |
 
 - Effort scale: `low < medium < high < xhigh < max` (set per subagent via the `effort:` frontmatter field in the subagent definition file, **not** the spawn call — ADR-0009). `xhigh`: Fable/Mythos/Opus 4.7+/Sonnet 5 — not Haiku. `max`: not Haiku. Haiku 4.5 doesn't take the `effort` parameter at all.
-- `claude-fable-5` exists but is unclassified here — verify its tier and window before routing to it.
 - Pareto note (checked 2026-07-16, from a user-supplied capability/cost/token benchmark): `Sonnet+medium` was dominated by `Opus+low` on all three axes, and `Sonnet+high` by `Opus+high` — dominated pairs are not picks while this holds. A *note*, not a rule (ADR-0001): a snapshot of today's lineup, so re-check on any vendor change and correct it here only.
 - `effort:` on a subagent is **documented to override session effort, and unverified** — the platform exposes no way to observe it (ADR-0013). Don't spend tokens trying to confirm a spawn's effort took; you can't.
