@@ -85,7 +85,7 @@ A criterion is verifiable when checking it is *independent of* and cheaper than 
 
 ## 7. Close the prediction loop
 
-The falsifiable prediction a context-economy spawn emits (§3) is inert unless a falsification is caught. **Detect** at any later task boundary: if a task reaches back into a process you spawned away under such a prediction — re-deriving or re-fetching what `[X]` didn't hold — that prediction has falsified. **Record** at session wrap-up: if any falsified this session, note them (count + one-line context each) on [#13](https://github.com/iclae/smart-router/issues/13). This detect-and-record is measurement only — it does not change the routing decision (ADR-0017). It is the one router action timed to session wrap-up rather than a task boundary, and it catches only in-session falsifications — a lower bound, cross-session and never-discovered misses being layer 3's (ADR-0016). _Done when:_ wrap-up has recorded any falsifications, or confirmed none.
+**Detect** at any later task boundary: if a task reaches back into a process you spawned away under a context-economy prediction (§3) — re-deriving or re-fetching what `[X]` didn't hold — that prediction has falsified. **Record** at session wrap-up: if any falsified this session, note them (count + one-line context each) on [#13](https://github.com/iclae/smart-router/issues/13). This detect-and-record is measurement only — it does not change the routing decision, and it is the one router action timed to session wrap-up rather than a task boundary. Why it exists, and what it can't catch: ADR-0017. _Done when:_ wrap-up has recorded any falsifications, or confirmed none.
 
 ## Roster (maintained — last checked 2026-07-17)
 
