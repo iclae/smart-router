@@ -1,6 +1,6 @@
 # Subagent definitions ship as templates the user installs, not as bundled agents
 
-> **Status** Accepted · **Relates to** [ADR-0009](0009-effort-channel-is-subagent-file-not-spawn-param.md) (the channel this ADR has to deliver), [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) (the floor the types shipped here are spawned under)
+> **Status** Accepted · **Relates to** [ADR-0009](0009-effort-channel-is-subagent-file-not-spawn-param.md) (the channel this ADR has to deliver), [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) (the floor the types shipped here are spawned under), [ADR-0008](0008-documentation-architecture.md) (whose three-type architecture this ADR stretches — see Consequences)
 > **Live rule** SKILL.md §3 (division-of-labour table) and Roster (`effort:` note); the install procedure itself lives in `agents/README.md`, which is not a SKILL.md section — see Consequences
 
 SKILL.md §2 says a sized effort is realized by "selecting a subagent **type** pre-defined with it" (ADR-0009). That instruction is only executable if those types exist somewhere Claude Code registers them. They cannot ship with this skill.
@@ -18,7 +18,7 @@ The evidence is one test plus one inference. A custom `Explore` was registered t
 - If the definition was rejected for its name — the docs require `name` to be lowercase letters and hyphens, and `Explore` is neither — then `name: Explore` is unshippable on its face.
 - If the definition registered and lost anyway, then built-ins do not yield to same-named definitions at the `--agents` scope, which the docs rank at **priority 2**. The `.claude/agents/` files this ADR ships sit at **priority 3**. A scope that ranks lower than one already observed to lose cannot win.
 
-So the shadowing mechanism is dead under either branch, and no amount of waiting on the control test revives it. What survives is the grill's *intent* — narrow read-only retrieval should run on the cheapest model, and should hand back its search terms so the main can review the query it can't see (ADR-0012). Only the mechanism changed.
+So the shadowing mechanism is dead under either branch, and no amount of waiting on the control test revives it. What survives is the grill's *intent* — narrow read-only retrieval should run on the cheapest model, and should hand back its search terms so the main can review the query it can't see (ADR-0012). Only the mechanism changed. (The shipped file also restricts `tools` to Read/Grep/Glob — one step past the grill's "lock model only", taken because read-only *is* the template's contract, and frontmatter can enforce what the body can only request.)
 
 The cost of the change is real and worth stating: shadowing would have made the cheap path the *default*, while explicit naming makes it a *choice the router has to remember*. The built-in `Explore` remains present and is the more obvious thing to reach for. This is a weaker design, chosen because the stronger one isn't available.
 

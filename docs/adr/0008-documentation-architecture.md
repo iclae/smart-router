@@ -1,6 +1,6 @@
 # Documentation architecture: one home per fact
 
-> **Status** Accepted
+> **Status** Accepted · **Relates to** [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (declares this architecture under-described — two document types outside the three named here; amendment pending)
 
 The skill's prose is itself a codebase whose modules are documents. Three document types each hold exactly one kind of fact, and no fact is duplicated across them:
 
