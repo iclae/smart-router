@@ -1,12 +1,14 @@
 # Documentation architecture: one home per fact
 
-> **Status** Accepted · **Relates to** [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (declares this architecture under-described — two document types outside the three named here; amendment pending)
+> **Status** Accepted · **Amended by** [ADR-0014](0014-five-document-types.md) · **Relates to** [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (the landing decision whose artifacts prompted ADR-0014's extension)
 
-The skill's prose is itself a codebase whose modules are documents. Three document types each hold exactly one kind of fact, and no fact is duplicated across them:
+The skill's prose is itself a codebase whose modules are documents. Five document types each hold exactly one kind of fact, and no fact is duplicated across them — the last two were added by ADR-0014 once ADR-0013's landing produced artifacts none of the original three covered:
 
 - **SKILL.md** — the executable procedure. Imperatives, thresholds, exact output strings, plus the *calibrating clause* of each judgment (which way to lean, where a threshold sits). Nothing else.
 - **CONTEXT.md** — the glossary. One-line lookups: term → meaning + `_Avoid_`. Not a place to argue *why*.
 - **`docs/adr/`** — the rationale. Full derivations, considered options, and reconciliations between decisions live here, one home each.
+- **Template body** (`agents/effort-*.md`, `agents/explore-haiku.md`) — the executable action for a **subagent**, not the router. Charter and cut-rule in ADR-0014.
+- **`agents/README.md`** — the install procedure for a **human** setting the templates up. Charter and cut-rule in ADR-0014.
 
 ## The cut-rule
 
@@ -16,7 +18,7 @@ This rests on a loading fact: when the skill is invoked only **SKILL.md's body**
 
 ## ADR status headers
 
-Each ADR carries a blockquote header directly under its title: **Status**, **Amends / Amended-by** (the supersession chain), **Relates to** (load-bearing cross-references only, not passing mentions), and **Live rule** pointing to the SKILL.md section that holds the net current statement, where one exists. A reader landing on any single ADR can tell whether it is still in force and find its neighbours, without reconstructing the chain from prose.
+Each ADR carries a blockquote header directly under its title: **Status**, **Amends / Amended-by** (the supersession chain), **Relates to** (load-bearing cross-references only, not passing mentions), and **Live rule** pointing to whichever document type holds the net current statement of the fact this ADR decided — SKILL.md for router action, a template body for subagent action, `agents/README.md` for install procedure, CONTEXT.md for a term's canonical definition — where one exists (generalized by ADR-0014; the original wording named SKILL.md exclusively, written when it was the only document type holding action). A reader landing on any single ADR can tell whether it is still in force and find its neighbours, without reconstructing the chain from prose.
 
 ## Considered Options
 
@@ -26,4 +28,4 @@ Each ADR carries a blockquote header directly under its title: **Status**, **Ame
 
 ## Consequences
 
-Every fact has one home: a model change is a Roster edit, a decision change is one ADR, a procedure change is one SKILL.md step. A future architecture review must not re-suggest collapsing the load-bearing SKILL.md duplication, nor adding a synthesis doc, nor building an index — those are settled here. The standing cost is that writing now requires placing each fact deliberately; the cut-rule is the test that makes the placement mechanical.
+Every fact has one home: a model change is a Roster edit, a decision change is one ADR, a procedure change is one SKILL.md step. A future architecture review must not re-suggest collapsing the load-bearing SKILL.md duplication, nor adding a synthesis doc, nor building an index — those are settled here. The standing cost is that writing now requires placing each fact deliberately; the cut-rule is the test that makes the placement mechanical. ADR-0014 extends the same principle to two more types without changing it — see that ADR for their charters and cut-rules.
