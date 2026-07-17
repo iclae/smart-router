@@ -47,7 +47,7 @@ Which subagent to spawn:
 | Peer-spawn for context economy, same profile | built-in `general-purpose` (inherits both) | — |
 | Anything else where inherited effort is fine | built-in `general-purpose` | — |
 
-**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ <baseline>` (it fires at every task boundary, including "inline, unchanged"). For a high-consequence, low-reversibility task done *inline*, append the verifiable criterion you'll self-check against (ADR-0005, ADR-0004). For a **context-economy spawn** (ADR-0007), append a **falsifiable prediction** of what the main will use going forward: `⟢ router: spawn (context economy) → main needs only [X], not the process`. Power-delta spawns don't carry it. (Why it's measured, its falsification, and its limits: ADR-0016, [#13](https://github.com/iclae/smart-router/issues/13).) _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
+**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ <baseline>` (it fires at every task boundary, including "inline, unchanged"). For a high-consequence, low-reversibility task done *inline*, append the verifiable criterion you'll self-check against (ADR-0005, ADR-0004). For a **context-economy spawn** (ADR-0007), append a **falsifiable prediction** of what the main will use going forward: `⟢ router: spawn (context economy) → main needs only [X], not the process`. Power-delta spawns don't carry it. (Why it's measured and its limits: ADR-0016, [#13](https://github.com/iclae/smart-router/issues/13); how a falsification is caught: §7.) _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
 
 ## 4. Apply the peak-working-set veto
 
@@ -82,6 +82,10 @@ A criterion is verifiable when checking it is *independent of* and cheaper than 
 - **Consistency/constraint** — all stated constraints met, nothing self-contradictory, counts add up.
 - **Reproducible/executable** — it runs, reproduces, resolves (tests and typechecks are the coding instances).
 - **Checklist coverage** — every required element present, each item separately checkable.
+
+## 7. Close the prediction loop
+
+**Detect** at any later task boundary: if a task reaches back into a process you spawned away under a context-economy prediction (§3) — re-deriving or re-fetching what `[X]` didn't hold — that prediction has falsified. **Record** at session wrap-up: if any falsified this session, note them (count + one-line context each) on [#13](https://github.com/iclae/smart-router/issues/13). This detect-and-record is measurement only — it does not change the routing decision, and it is the one router action timed to session wrap-up rather than a task boundary. Why it exists, and what it can't catch: ADR-0017. _Done when:_ wrap-up has recorded any falsifications, or confirmed none.
 
 ## Roster (maintained — last checked 2026-07-17)
 
