@@ -1,6 +1,6 @@
 # Defending against confidently-wrong under-escalation
 
-> **Status** Accepted · **Relates to** [ADR-0005](0005-inline-routing-signal-vs-gate.md), [ADR-0011](0011-gate-direction-only-read-from-externals.md) (the shape of layer 3's gate)
+> **Status** Accepted · **Relates to** [ADR-0005](0005-inline-routing-signal-vs-gate.md), [ADR-0011](0011-gate-direction-only-read-from-externals.md) (the shape of layer 3's gate), [ADR-0012](0012-spawn-model-floor-tracks-the-reviewer-backstop.md) (what layers 1–2 holding, or not, costs at the spawn site)
 
 A model that confidently believes it can do a task it actually can't produces no felt strain, so no introspective check (cheap-peek, round-up) can catch it. We defend this structurally, not by self-judgment, in three layers ordered by reliability.
 

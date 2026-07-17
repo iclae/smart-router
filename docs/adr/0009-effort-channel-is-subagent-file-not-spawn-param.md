@@ -1,6 +1,6 @@
 # Effort on spawn: set in the subagent file, not the spawn call
 
-> **Status** Accepted · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md) (Superseded by [ADR-0010](0010-baseline-variable-not-locked-opus-high.md)), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md)
+> **Status** Accepted · **Relates to** [ADR-0002](0002-main-session-locked-opus-high.md) (Superseded by [ADR-0010](0010-baseline-variable-not-locked-opus-high.md)), [ADR-0003](0003-spawn-boundary-and-orchestrator-yield.md), [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (how the definition-file channel this ADR names actually reaches a user)
 > **Live rule** SKILL.md §2 (clarified), Roster effort note (corrected)
 
 A subagent's **model** is settable at the spawn call (the Agent tool takes a `model` argument); its **effort** is not — the spawn call exposes no `effort` parameter. Effort is set instead in the **subagent definition file** (`frontmatter`'s `effort:` field), which overrides the session effort for the duration that subagent is active. The Claude Agent SDK confirms the split: `AgentDefinition` (the type a subagent file maps to) carries both `model` and `effort` (added in CHANGELOG #565, with `xhigh` in #914), while the spawn call carries only `model`.

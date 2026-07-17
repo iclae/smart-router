@@ -66,6 +66,10 @@ _Avoid_: investigation, spike, recon
 A domain-agnostic check whose evaluation is *independent of* and cheaper than producing the work, yielding an observable pass/fail — the independence is what catches a confidently-wrong result, which shares the blind spot that produced it. The type menu and the gate-the-unverifiable rule live in SKILL.md §6.
 _Avoid_: success criteria, acceptance test (too coding/spec-bound)
 
+**Spawn model floor**:
+The weakest model a task may be spawned to: Haiku when a verifiable criterion is nameable *and* the main will check the artifact against it, Sonnet when either fails (ADR-0012).
+_Avoid_: minimum model, model floor (ambiguous — the main session has one too)
+
 **Executor/reviewer separation**:
 The work and its check live in different contexts. Down-delegation gets this for free: the Opus main substantively reviews the weaker subagent's artifact against the criterion. Up-delegation cannot — main is the weaker party and can't review a result smarter than itself.
 
