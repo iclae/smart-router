@@ -47,7 +47,7 @@ Which subagent to spawn:
 | Peer-spawn for context economy, same profile | built-in `general-purpose` (inherits both) | — |
 | Anything else where inherited effort is fine | built-in `general-purpose` | — |
 
-**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ <baseline>` (it fires at every task boundary, including "inline, unchanged"). For a high-consequence, low-reversibility task done *inline*, append the verifiable criterion you'll self-check against (ADR-0005, ADR-0004). _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
+**Then emit a one-line routing signal**, whatever the outcome — e.g. `⟢ router: inline @ <baseline>` (it fires at every task boundary, including "inline, unchanged"). For a high-consequence, low-reversibility task done *inline*, append the verifiable criterion you'll self-check against (ADR-0005, ADR-0004). For a **context-economy spawn** (ADR-0007), append a **falsifiable prediction** of what the main will use going forward: `⟢ router: spawn (context economy) → main needs only [X], not the process`. Power-delta spawns don't carry it. (Why it's measured, its falsification, and its limits: ADR-0016, [#13](https://github.com/iclae/smart-router/issues/13).) _Done when:_ the task is routed to inline, a spawn, or a gate, and a one-line signal of that decision has been emitted.
 
 ## 4. Apply the peak-working-set veto
 
