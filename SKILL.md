@@ -85,7 +85,7 @@ A criterion is verifiable when checking it is *independent of* and cheaper than 
 
 ## 7. Close the prediction loop
 
-**Detect** at any later task boundary: if a task reaches back into a process you spawned away under a context-economy prediction (§3) — re-deriving or re-fetching what `[X]` didn't hold — that prediction has falsified. **Record it then** — the moment of detection, not batched to a session end the model can't observe — with one line of context on [#13](https://github.com/iclae/smart-router/issues/13). This detect-and-record is measurement only: it does not change the routing decision. Why it exists, why the record is anchored to the detection moment, and what it can't catch: ADR-0017. _Done when:_ a falsification detected at this boundary has been recorded on #13 (nothing to do if none).
+**Detect** at any later task boundary: if a task reaches back into a process you spawned away under a context-economy prediction (§3) — re-deriving or re-fetching what `[X]` didn't hold — that prediction has falsified. **Record it then** — at the moment of detection, not saved for later — with one line of context on [#13](https://github.com/iclae/smart-router/issues/13). This detect-and-record is measurement only: it does not change the routing decision. Why it exists, why the record is anchored to the detection moment, and what it can't catch: ADR-0017. _Done when:_ a falsification detected at this boundary has been recorded on #13 (nothing to do if none).
 
 ## Roster (maintained — last checked 2026-07-17)
 

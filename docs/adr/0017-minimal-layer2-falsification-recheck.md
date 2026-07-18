@@ -1,6 +1,6 @@
 # Minimal layer 2: an in-session falsification recheck closes the prediction loop
 
-> **Status** Accepted · **Relates to** [ADR-0016](0016-context-economy-spawn-carries-falsifiable-prediction.md) (the layer-1 prediction this catches), [ADR-0007](0007-context-economy-spawn-driver.md) (the process-as-basis judgment ultimately measured)
+> **Status** Accepted · **Relates to** [ADR-0016](0016-context-economy-spawn-carries-falsifiable-prediction.md) (the layer-1 prediction this catches), [ADR-0007](0007-context-economy-spawn-driver.md) (the process-as-basis judgment ultimately measured), [ADR-0015](0015-router-is-model-invocable.md) (the same session-blind-spot that anchors this ADR's recording trigger to the detection moment)
 > **Live rule** SKILL.md §7
 
 ADR-0016 has a context-economy spawn emit a falsifiable prediction. But emission alone is **inert**: the prediction sits in a session transcript and evaporates when the session ends. Nothing catches a falsification, so layer 1 produces no data — pure ceremony. To make it yield anything, a falsification has to be detected and recorded.
