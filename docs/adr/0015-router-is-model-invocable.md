@@ -1,6 +1,6 @@
 # smart-router is model-invocable: `disable-model-invocation` flipped off
 
-> **Status** Accepted · **Relates to** [ADR-0011](0011-gate-direction-only-read-from-externals.md) (the same runtime blind spots this skill lives inside), [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (subagent load model, which bounds the residual below)
+> **Status** Accepted · **Relates to** [ADR-0011](0011-gate-direction-only-read-from-externals.md) (the same runtime blind spots this skill lives inside), [ADR-0013](0013-ship-subagent-templates-not-bundled-agents.md) (subagent load model, which bounds the residual below), [ADR-0017](0017-minimal-layer2-falsification-recheck.md) (reuses this ADR's session-blind-spot to anchor its recording trigger)
 > **Live rule** SKILL.md frontmatter (absence of `disable-model-invocation`) and its `description`
 
 The skill shipped with `disable-model-invocation: true`. That is the setting for side-effectful, timing-sensitive commands (`/deploy`, `/commit`) — you don't want the model deciding *when* they run. smart-router is the opposite: a pure reasoning discipline with no side effects, meant to apply at **every** task boundary. Setting it user-only created a structural tension ([#13](https://github.com/iclae/smart-router/issues/13) hole 3): SKILL.md says "run at every task boundary," but under `true` the model could not invoke the skill at all — the description never even entered its context — so the discipline was inert until the user remembered to type `/smart-router`. An easy link to forget, with no mechanism behind it.
